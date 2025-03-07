@@ -1,0 +1,161 @@
+vlan 10
+name AreaEconFinanAdminist
+
+vlan 20
+name RecHumn
+
+vlan 30
+name Consult
+
+vlan 40
+name IngSist
+
+vlan 50
+name IngSoftw
+
+vlan 60
+name OfJefes
+
+vlan 70
+name SalaReun
+
+conf term
+interface range fa0/1-24 
+switchport access vlan 70
+switchport mode access
+exit
+interface gig 0/1
+switchport mode trunk
+
+interface gig0/0.2
+encapsulation dot1q 20
+ip address 192.66.0.33 255.255.255.224
+ip helper-address 192.66.0.214
+ex
+interface gig0/0.3
+encapsulation dot1q 30
+ip address 192.66.0.65 255.255.255.224
+ip helper-address 192.66.0.214
+ex
+interface gig0/0.4
+encapsulation dot1q 40
+ip address 192.66.0.97 255.255.255.224
+ip helper-address 192.66.0.214
+ex
+interface gig0/0.5
+encapsulation dot1q 50
+ip address 192.66.0.129 255.255.255.224
+ip helper-address 192.66.0.214
+ex
+interface gig0/0.6
+encapsulation dot1q 60
+ip address 192.66.0.161 255.255.255.224
+ip helper-address 192.66.0.214
+ex
+interface gig0/0.7
+encapsulation dot1q 70
+ip address 192.66.0.193 255.255.255.240
+ip helper-address 192.66.0.214
+ex
+
+
+
+
+
+ip access-list extended EFA
+permit tcp 192.66.0.0 0.0.0.31 host 192.66.0.210 eq 80
+permit tcp 192.66.0.0 0.0.0.31 host 192.66.0.210 eq 443
+deny ip 192.66.0.0 0.0.0.31 192.66.0.96 0.0.0.31
+deny ip 192.66.0.0 0.0.0.31 192.66.0.128 0.0.0.31
+deny ip 192.66.0.0 0.0.0.31 192.66.0.192 0.0.0.31
+deny ip 192.66.0.0 0.0.0.31 192.66.0.160 0.0.0.31
+deny ip 192.66.0.0 0.0.0.31 192.66.0.208 0.0.0.3
+permit ip any any
+ex
+interface gig 0/0.1 
+ip access-group EFA in
+ex
+
+
+
+ip access-list extended RH
+permit tcp 192.66.0.32 0.0.0.31 host 192.66.0.210 eq 80
+permit tcp 192.66.0.32 0.0.0.31 host 192.66.0.210 eq 443
+deny ip 192.66.0.32 0.0.0.31 192.66.0.208 0.0.0.3
+permit ip any any
+ex
+interface gig 0/0.2 
+ip access-group RH in
+ex
+
+
+ip access-list extended CON
+permit tcp 192.66.0.64 0.0.0.31 host 192.66.0.210 eq 80
+permit tcp 192.66.0.64 0.0.0.31 host 192.66.0.210 eq 443
+deny ip 192.66.0.64 0.0.0.31 192.66.0.96 0.0.0.31
+deny ip 192.66.0.64 0.0.0.31 192.66.0.128 0.0.0.31
+deny ip 192.66.0.64 0.0.0.31 192.66.0.192 0.0.0.31
+deny ip 192.66.0.64 0.0.0.31 192.66.0.160 0.0.0.31
+deny ip 192.66.0.64 0.0.0.31 192.66.0.208 0.0.0.3
+permit ip any any
+ex
+interface gig 0/0.3
+ip access-group CON in
+ex
+
+
+ip access-list extended SIST
+permit tcp 192.66.0.96 0.0.0.31 host 192.66.0.210 eq 80
+permit tcp 192.66.0.96 0.0.0.31 host 192.66.0.210 eq 443
+deny ip 192.66.0.96 0.0.0.31 192.66.0.0 0.0.0.31
+deny ip 192.66.0.96 0.0.0.31 192.66.0.64 0.0.0.31
+deny ip 192.66.0.96 0.0.0.31 192.66.0.128 0.0.0.31
+deny ip 192.66.0.96 0.0.0.31 192.66.0.160 0.0.0.31
+deny ip 192.66.0.96 0.0.0.31 192.66.0.192 0.0.0.31
+deny ip 192.66.0.96 0.0.0.31 192.66.0.208 0.0.0.3
+permit ip any any
+ex
+interface gig 0/0.4
+ip access-group SIST in
+ex
+
+ip access-list extended SFT
+permit tcp 192.66.0.128 0.0.0.31 host 192.66.0.210 eq 80
+permit tcp 192.66.0.128 0.0.0.31 host 192.66.0.210 eq 443
+deny ip 192.66.0.128 0.0.0.31 192.66.0.0 0.0.0.31
+deny ip 192.66.0.128 0.0.0.31 192.66.0.64 0.0.0.31
+deny ip 192.66.0.128 0.0.0.31 192.66.0.96 0.0.0.31
+deny ip 192.66.0.128 0.0.0.31 192.66.0.160 0.0.0.31
+deny ip 192.66.0.128 0.0.0.31 192.66.0.192 0.0.0.31
+deny ip 192.66.0.128 0.0.0.31 192.66.0.208 0.0.0.3
+permit ip any any
+ex
+interface gig 0/0.5
+ip access-group SFT in
+ex
+
+ip access-list extended JF
+permit tcp 192.66.0.192 0.0.0.31 host 192.66.0.210 eq 80
+permit tcp 192.66.0.192 0.0.0.31 host 192.66.0.210 eq 443
+deny ip 192.66.0.192 0.0.0.31 192.66.0.208 0.0.0.3
+permit ip any any
+ex
+interface gig 0/0.6
+ip access-group JF in
+ex
+
+
+ip access-list extended REUN
+permit tcp 192.66.0.160 0.0.0.31 host 192.66.0.210 eq 80
+permit tcp 192.66.0.160 0.0.0.31 host 192.66.0.210 eq 443
+deny ip 192.66.0.160 0.0.0.31 192.66.0.0 0.0.0.31
+deny ip 192.66.0.160 0.0.0.31 192.66.0.64 0.0.0.31
+deny ip 192.66.0.160 0.0.0.31 192.66.0.96 0.0.0.31
+deny ip 192.66.0.160 0.0.0.31 192.66.0.128 0.0.0.31
+deny ip 192.66.0.160 0.0.0.31 192.66.0.192 0.0.0.31
+deny ip 192.66.0.160 0.0.0.31 192.66.0.208 0.0.0.3
+permit ip any any
+ex
+interface gig 0/0.7
+ip access-group REUN in
+ex
